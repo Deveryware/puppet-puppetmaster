@@ -74,6 +74,7 @@ class puppetmaster (
   $puppetmaster_reports              = '',
   $puppetmaster_reporturl            = '',
   $puppetmaster_facts_terminus       = '',
+  $puppetmaster_manifest             = '',
   $puppetmaster_modulepath           = '',
   $puppetmaster_templatepath         = '',
 ) {
@@ -103,6 +104,15 @@ class puppetmaster (
     path    => '/etc/puppet/puppet.conf',
     ensure  => present,
   }
+
+  if ($puppetmaster_manifest) {
+    ini_setting { 'puppetmaster_manifest':
+      section => 'main',
+      setting => 'manifest',
+      value   => $puppetmaster_manifest,
+    }
+  }
+
 
   if ($puppetmaster_modulepath) {
     ini_setting { 'puppetmaster_modulepath':
